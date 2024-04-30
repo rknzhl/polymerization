@@ -9,7 +9,7 @@ class ProteinModel:
         self.temperature = temperature
         self.kB = 1.38e-23
         self.positions = np.zeros((self.num_beads, 3))
-        self.spring_constant = 1.0  # примерное значение пружинной константы
+        self.spring_constant = 1.0  # примерно значение пружинной константы
         self.bond_length = 1.0  # примерное значение длины связи
 
         index = 0
