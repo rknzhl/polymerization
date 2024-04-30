@@ -50,7 +50,7 @@ class ProteinModel:
             self.monte_carlo_step()
             ax.clear()
             ax.scatter(self.positions[:, 0], self.positions[:, 1], self.positions[:, 2])
-            plt.pause(0.05)  # Пауза для отображения обновлений
+            plt.pause(0.05)  # Пауза для отображения gi
         plt.show()
 
     def get_positions(self):
