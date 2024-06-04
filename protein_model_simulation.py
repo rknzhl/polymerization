@@ -12,9 +12,16 @@ class ProteinModelSimulationMixin:
         fig = plt.figure()
         ax = fig.add_subplot(111, projection='3d')
 
-        ax.set_xlim([-self.len_beads/2, self.len_beads])
-        ax.set_ylim([-self.len_beads/2, self.len_beads])
-        ax.set_zlim([-self.len_beads/2, self.len_beads])
+        if self.mode == 'grid':
+            ax.set_xlim([-self.len_beads / 2, self.len_beads])
+            ax.set_ylim([-self.len_beads / 2, self.len_beads])
+            ax.set_zlim([-self.len_beads / 2, self.len_beads])
+        elif self.mode == 'random':
+            min_coords = np.min(self.positions, axis=0)
+            max_coords = np.max(self.positions, axis=0)
+            ax.set_xlim([min_coords[0] - 1, max_coords[0] + 1])
+            ax.set_ylim([min_coords[1] - 1, max_coords[1] + 1])
+            ax.set_zlim([min_coords[2] - 1, max_coords[2] + 1])
 
         ax.xaxis.pane.fill = False
         ax.yaxis.pane.fill = False
@@ -39,9 +46,14 @@ class ProteinModelSimulationMixin:
 
             plt.title(f'Step {step + 1}')
 
-            ax.set_xlim([-self.len_beads / 2, self.len_beads])
-            ax.set_ylim([-self.len_beads / 2, self.len_beads])
-            ax.set_zlim([-self.len_beads / 2, self.len_beads])
+            if self.mode == 'grid':
+                ax.set_xlim([-self.len_beads / 2, self.len_beads])
+                ax.set_ylim([-self.len_beads / 2, self.len_beads])
+                ax.set_zlim([-self.len_beads / 2, self.len_beads])
+            elif self.mode == 'random':
+                ax.set_xlim([min_coords[0] - 1, max_coords[0] + 1])
+                ax.set_ylim([min_coords[1] - 1, max_coords[1] + 1])
+                ax.set_zlim([min_coords[2] - 1, max_coords[2] + 1])
 
             plt.draw()
             fig.canvas.draw()
@@ -63,3 +75,4 @@ class ProteinModelSimulationMixin:
         video_path = f'videos/simulation_{current_time}.mp4'
         imageio.mimsave(video_path, frames, fps=10, codec='mpeg4', quality=10)
         print(f'Видео сохранено в {video_path}')
+
