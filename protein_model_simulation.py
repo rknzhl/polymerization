@@ -9,7 +9,7 @@ from tqdm import tqdm
 class ProteinModelSimulationMixin:
     def run_simulation(self, num_steps=100):
         frames = []
-        fig = plt.figure()
+        fig = plt.figure(dpi=200, figsize=(10, 8))
         ax = fig.add_subplot(111, projection='3d')
 
         if self.mode == 'grid':

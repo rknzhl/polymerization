@@ -11,7 +11,7 @@ class ProteinModelBase:
         self.temperature = temperature
         self.kB = 1.38e-23
         self.positions = np.zeros((self.num_beads, 3))
-        self.spring_constant = 9999999999.0
+        self.spring_constant = 999.0
         self.bond_length = 1.0
         self.sigma = 4
         self.e = 1
