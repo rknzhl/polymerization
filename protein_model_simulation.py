@@ -1,10 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 import imageio
-from datetime import datetime
 import os
 
+from datetime import datetime
+from tqdm import tqdm
 
 class ProteinModelSimulationMixin:
     def run_simulation(self, num_steps=100):
@@ -24,9 +24,9 @@ class ProteinModelSimulationMixin:
         ax.yaxis.pane.set_edgecolor('w')
         ax.zaxis.pane.set_edgecolor('w')
         print(f'Начало симуляции с количеством шагов: {num_steps}')
-        for step in range(num_steps):
+        bar_format = "{l_bar}%s{bar}%s{r_bar}" % ('\033[92m', '\033[0m')
+        for step in tqdm(range(num_steps), desc="Cимуляция процесса", bar_format = bar_format):
             ax.clear()
-
             # Отображение молекул
             ax.scatter(self.positions[:, 0], self.positions[:, 1], self.positions[:, 2], c='blue', s=100)
 
@@ -61,7 +61,5 @@ class ProteinModelSimulationMixin:
         # Сохранение в видео
         current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         video_path = f'videos/simulation_{current_time}.mp4'
-        with imageio.get_writer(video_path, fps=10) as writer:
-            for frame in frames:
-                writer.append_data(frame)
+        imageio.mimsave(video_path, frames, fps=10, codec='mpeg4', quality=10)
         print(f'Видео сохранено в {video_path}')
