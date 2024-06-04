@@ -11,7 +11,7 @@ class ProteinModelBase:
         self.bond_length = 1.0
         self.sigma = 4
         self.e = 1
-
+        self.energy_arr = []
         index = 0
 
         for z in range(len_beads):

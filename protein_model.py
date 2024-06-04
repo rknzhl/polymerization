@@ -2,6 +2,6 @@ from protein_model_base import ProteinModelBase
 from protein_model_energy import ProteinModelEnergyMixin
 from protein_model_monte_carlo import ProteinModelMonteCarloMixin
 from protein_model_simulation import ProteinModelSimulationMixin
-
-class ProteinModel(ProteinModelBase, ProteinModelEnergyMixin, ProteinModelMonteCarloMixin, ProteinModelSimulationMixin):
+from protein_model_statistics import ProteinModelStatisticsMixin
+class ProteinModel(ProteinModelBase, ProteinModelEnergyMixin, ProteinModelMonteCarloMixin, ProteinModelSimulationMixin,ProteinModelStatisticsMixin):
     pass
