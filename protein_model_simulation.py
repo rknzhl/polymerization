@@ -1,5 +1,3 @@
-# protein_model_simulation.py
-
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
@@ -26,9 +24,18 @@ class ProteinModelSimulationMixin:
         ax.zaxis.pane.set_edgecolor('w')
         print(f'Начало симуляции с количеством шагов: {num_steps}')
         for step in range(num_steps):
-            self.monte_carlo_step()
             ax.clear()
+
+            # Отображение молекул
             ax.scatter(self.positions[:, 0], self.positions[:, 1], self.positions[:, 2], c='blue', s=100)
+
+            # Отображение соединений между молекулами
+            for i in range(1, self.num_beads):
+                x_values = [self.positions[i - 1, 0], self.positions[i, 0]]
+                y_values = [self.positions[i - 1, 1], self.positions[i, 1]]
+                z_values = [self.positions[i - 1, 2], self.positions[i, 2]]
+                ax.plot(x_values, y_values, z_values, c='red')
+
             plt.title(f'Step {step + 1}')
 
             ax.set_xlim([0, self.len_beads])
@@ -41,6 +48,8 @@ class ProteinModelSimulationMixin:
             image = np.frombuffer(fig.canvas.tostring_rgb(), dtype='uint8')
             image = image.reshape(fig.canvas.get_width_height()[::-1] + (3,))
             frames.append(image)
+
+            self.monte_carlo_step()
 
         plt.close()
 

@@ -13,11 +13,28 @@ class ProteinModelBase:
         self.e = 1
 
         index = 0
-        for x in range(len_beads):
-            for y in range(len_beads):
-                for z in range(len_beads):
-                    self.positions[index] = [x, y, z]
-                    index += 1
+
+        for z in range(len_beads):
+            if z % 2 == 1:
+                for y in range(len_beads):
+                    if y % 2 == 1:
+                        for x in range(len_beads):
+                            self.positions[index] = [x, y, z]
+                            index += 1
+                    else:
+                        for x in range(len_beads - 1, -1, -1):
+                            self.positions[index] = [x, y, z]
+                            index += 1
+            else:
+                for y in range(len_beads - 1, -1, -1):
+                    if y % 2 == 0:
+                        for x in range(len_beads):
+                            self.positions[index] = [x, y, z]
+                            index += 1
+                    else:
+                        for x in range(len_beads - 1, -1, -1):
+                            self.positions[index] = [x, y, z]
+                            index += 1
 
     def get_positions(self):
         return self.positions
