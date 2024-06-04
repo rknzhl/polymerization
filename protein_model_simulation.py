@@ -1,7 +1,9 @@
+# protein_model_simulation.py
+
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-import imageio.v3 as iio
+import imageio
 from datetime import datetime
 import os
 
@@ -49,7 +51,7 @@ class ProteinModelSimulationMixin:
         # Сохранение в видео
         current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
         video_path = f'videos/simulation_{current_time}.mp4'
-        with iio.get_writer(video_path, fps=10) as writer:
+        with imageio.get_writer(video_path, fps=10) as writer:
             for frame in frames:
                 writer.append_data(frame)
         print(f'Видео сохранено в {video_path}')

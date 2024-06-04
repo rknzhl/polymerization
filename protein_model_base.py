@@ -9,6 +9,8 @@ class ProteinModelBase:
         self.positions = np.zeros((self.num_beads, 3))
         self.spring_constant = 1.0
         self.bond_length = 1.0
+        self.sigma = 4
+        self.e = 1
 
         index = 0
         for x in range(len_beads):
