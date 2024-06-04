@@ -5,15 +5,16 @@ import imageio
 from datetime import datetime
 import os
 
+
 class ProteinModelSimulationMixin:
     def run_simulation(self, num_steps=100):
         frames = []
         fig = plt.figure()
         ax = fig.add_subplot(111, projection='3d')
 
-        ax.set_xlim([0, self.len_beads + 1])
-        ax.set_ylim([0, self.len_beads + 1])
-        ax.set_zlim([0, self.len_beads + 1])
+        ax.set_xlim([-self.len_beads/2, self.len_beads])
+        ax.set_ylim([-self.len_beads/2, self.len_beads])
+        ax.set_zlim([-self.len_beads/2, self.len_beads])
 
         ax.xaxis.pane.fill = False
         ax.yaxis.pane.fill = False
@@ -38,9 +39,9 @@ class ProteinModelSimulationMixin:
 
             plt.title(f'Step {step + 1}')
 
-            ax.set_xlim([0, self.len_beads])
-            ax.set_ylim([0, self.len_beads])
-            ax.set_zlim([0, self.len_beads])
+            ax.set_xlim([-self.len_beads / 2, self.len_beads])
+            ax.set_ylim([-self.len_beads / 2, self.len_beads])
+            ax.set_zlim([-self.len_beads / 2, self.len_beads])
 
             plt.draw()
             fig.canvas.draw()
