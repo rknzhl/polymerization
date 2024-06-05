@@ -1,5 +1,9 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
+import os
+
+from datetime import datetime
 from tqdm import tqdm
 from protein_model import ProteinModel
 from multiprocessing import Pool, cpu_count
@@ -13,7 +17,7 @@ def run_simulation_for_temperature(args):
     return temp, heat_capacity, average_energy
 
 
-def run_cap_vs_temp(temp_range, len_beads, num_steps=100, mode='grid'):
+def run_statistics(temp_range, len_beads, num_steps=100, mode='grid'):
     temperatures = []
     heat_capacities = []
     average_energies = []
@@ -28,6 +32,31 @@ def run_cap_vs_temp(temp_range, len_beads, num_steps=100, mode='grid'):
             average_energies.append(average_energy)
 
     return temperatures, heat_capacities, average_energies
+
+
+def save_statistics(temperatures, heat_capacities, average_energies, num_beads, filename='statistics.csv'):
+    sorted_indices = np.argsort(temperatures)
+    sorted_temperatures = np.array(temperatures)[sorted_indices]
+    sorted_heat_capacities = np.array(heat_capacities)[sorted_indices]
+    sorted_average_energies = np.array(average_energies)[sorted_indices]
+    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    data = {
+        'Temp': sorted_temperatures,
+        'Heat_cap': sorted_heat_capacities,
+        'Avg_energy': sorted_average_energies,
+        'Number': num_beads,
+        'Timestamp': [current_time] * len(sorted_temperatures)
+    }
+
+    df = pd.DataFrame(data)
+
+    if not os.path.isfile(filename):
+        df.to_csv(filename, index=False)
+    else:
+        df.to_csv(filename, mode='a', header=False, index=False)
+
+
 
 
 def plot_heat_capacity_vs_temperature(temperatures, heat_capacities):
