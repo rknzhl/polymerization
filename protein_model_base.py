@@ -8,13 +8,14 @@ class ProteinModelBase:
         if mode == 'random':
             self.len_beads = len_beads
             self.num_beads = len_beads
+
+        self.positions = np.zeros((self.num_beads, 3))
         self.temperature = temperature
         self.kB = 1.38e-23
-        self.positions = np.zeros((self.num_beads, 3))
-        self.spring_constant = 999.0
+        self.spring_constant = 1.0
         self.bond_length = 1.0
-        self.sigma = 4
-        self.e = 1
+        self.sigma = 1.5
+        self.e = 1.2
         self.energy_arr = []
         self.mode = mode
         if self.mode == 'grid':

@@ -1,4 +1,5 @@
 import numpy as np
+import random
 
 
 class ProteinModelMonteCarloMixin:
@@ -7,7 +8,8 @@ class ProteinModelMonteCarloMixin:
             old_position = np.copy(self.positions[i])
             old_energy = self.energy()
             sum_dist = 0
-            for j in range(1, self.num_beads):
+            for step in range(1, self.num_beads):
+                j = random.randint(1, self.num_beads)
                 displacement = self.positions[j] - self.positions[j - 1]
                 sum_dist += np.linalg.norm(displacement)
             av_dist = sum_dist / self.num_beads

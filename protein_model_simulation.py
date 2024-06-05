@@ -44,7 +44,7 @@ class ProteinModelSimulationMixin:
                 z_values = [self.positions[i - 1, 2], self.positions[i, 2]]
                 ax.plot(x_values, y_values, z_values, c='red')
 
-            plt.title(f'Step {step + 1}')
+            plt.title(f'Step {(step + 1)*self.num_beads}')
 
             if self.mode == 'grid':
                 ax.set_xlim([-self.len_beads / 2, self.len_beads])
