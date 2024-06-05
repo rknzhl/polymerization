@@ -6,7 +6,7 @@ class ProteinModelStatisticsMixin:
     def calculate_statistics(self):
         # Используем последние 75% данных
         n = len(self.energy_arr)
-        energy_arr = np.array(self.energy_arr[int(0.25 * n):])
+        energy_arr = np.array(self.energy_arr[int(0.5 * n):])
         sq_energy_arr = energy_arr ** 2
 
         average_energy_sq = np.mean(sq_energy_arr)

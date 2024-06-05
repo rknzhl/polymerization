@@ -7,7 +7,7 @@ from datetime import datetime
 from tqdm import tqdm
 
 class ProteinModelSimulationMixin:
-    def run_simulation(self, num_steps=100):
+    def run_simulation(self, num_steps=100, save_video = False):
         frames = []
         fig = plt.figure(dpi=200, figsize=(10, 8))
         ax = fig.add_subplot(111, projection='3d')
@@ -58,21 +58,23 @@ class ProteinModelSimulationMixin:
             plt.draw()
             fig.canvas.draw()
 
-            image = np.frombuffer(fig.canvas.tostring_rgb(), dtype='uint8')
-            image = image.reshape(fig.canvas.get_width_height()[::-1] + (3,))
-            frames.append(image)
+            if save_video:
+                image = np.frombuffer(fig.canvas.tostring_rgb(), dtype='uint8')
+                image = image.reshape(fig.canvas.get_width_height()[::-1] + (3,))
+                frames.append(image)
 
             self.monte_carlo_step()
 
         plt.close()
 
-        # Создание папки, если она не существует
-        if not os.path.exists('videos'):
-            os.makedirs('videos')
+        if save_video:
+            # Создание папки, если она не существует
+            if not os.path.exists('videos'):
+                os.makedirs('videos')
 
-        # Сохранение в видео
-        current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        video_path = f'videos/simulation_{current_time}.mp4'
-        imageio.mimsave(video_path, frames, fps=10, codec='mpeg4', quality=10)
-        print(f'Видео сохранено в {video_path}')
+            # Сохранение в видео
+            current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+            video_path = f'videos/simulation_{current_time}.mp4'
+            imageio.mimsave(video_path, frames, fps=10, codec='mpeg4', quality=10)
+            print(f'Видео сохранено в {video_path}')
 
