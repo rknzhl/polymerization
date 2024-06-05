@@ -9,7 +9,7 @@ class ProteinModelMonteCarloMixin:
             old_energy = self.energy()
             sum_dist = 0
             for step in range(1, self.num_beads):
-                j = random.randint(1, self.num_beads)
+                j = random.randint(0, self.num_beads-1)
                 displacement = self.positions[j] - self.positions[j - 1]
                 sum_dist += np.linalg.norm(displacement)
             av_dist = sum_dist / self.num_beads

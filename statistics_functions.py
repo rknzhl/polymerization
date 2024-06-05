@@ -1,13 +1,12 @@
 import matplotlib.pyplot as plt
-
+from tqdm import tqdm
 from protein_model import ProteinModel
 
 
-def run_simulation_for_temperatures(temp_range, len_beads, num_steps=1000, mode='random'):
+def run_simulation_for_temperatures(temp_range, len_beads, num_steps=100, mode='grid'):
     temperatures = []
     heat_capacities = []
-
-    for temp in temp_range:
+    for temp in tqdm(temp_range, desc="Cимуляция процесса"):
         model = ProteinModel(len_beads, temperature=temp, mode=mode)
         model.run_simulation(num_steps=num_steps)
         average_energy, heat_capacity = model.calculate_statistics()
