@@ -17,8 +17,10 @@ class ProteinModelMonteCarloMixin:
             self.positions[i] += random_displacement
             new_energy = self.energy()
             delta_e = new_energy - old_energy
+            #print("DELTA_E:",delta_e, '\n')
             if delta_e > 0:
                 probability = np.exp(-delta_e / (self.kB * self.temperature))
+                #print("PROBABILITY:", probability, '\n')
                 if np.random.rand() > probability:
                     self.energy_arr.append(old_energy)
                     self.positions[i] = old_position

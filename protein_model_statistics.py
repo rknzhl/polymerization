@@ -4,7 +4,7 @@ from matplotlib import pyplot as plt
 
 class ProteinModelStatisticsMixin:
     def calculate_statistics(self):
-        # Используем последние 75% данных
+        # Используем последние 50% данных
         n = len(self.energy_arr)
         energy_arr = np.array(self.energy_arr[int(0.5 * n):])
         sq_energy_arr = energy_arr ** 2

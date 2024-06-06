@@ -11,11 +11,11 @@ class ProteinModelBase:
 
         self.positions = np.zeros((self.num_beads, 3))
         self.temperature = temperature
-        self.kB = 1.38e-23
-        self.spring_constant = 0.3 * 10 ** 27
-        self.bond_length = 1.0 * (10 ** (-10))
-        self.sigma1 = 0.048 * (10 ** (-25.5))
-        self.sigma2 = 1.125 * (10 ** (-55.5))
+        self.kB = 8.31
+        self.spring_constant = 0.3 * 10 ** 6
+        self.bond_length = 0.1
+        self.sigma1 = 0.047 ** 2
+        self.sigma2 = (1.125 / 1000) ** 2
         self.e = 10
         self.energy_arr = []
         self.mode = mode

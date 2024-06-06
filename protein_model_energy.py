@@ -11,6 +11,6 @@ class ProteinModelEnergyMixin:
                 displacement = (self.positions[i] - self.positions[j]) * self.bond_length
                 bond_distance = np.linalg.norm(displacement)
                 if bond_distance != 0:
-                    energy += 4 * self.e * (self.sigma2 / (bond_distance) ** 12 - self.sigma1 / (bond_distance)**6)
+                    energy += (self.sigma2 / (bond_distance) ** 12 - self.sigma1 / (bond_distance)**6)
         return energy
 
